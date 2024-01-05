@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Theme } from "../../context/DarkMode";
 import CardDark from "../template/TemplateDarkMode";
 import { Link } from "react-router-dom";
@@ -7,6 +7,12 @@ function Navbar() {
   const { isDark, setIsDark } = useContext(Theme);
   const [isMenuHidden, setMenuHidden] = useState(true);
 
+  useEffect(() => {
+    const storedIsDark = localStorage.getItem("isDark");
+    if (storedIsDark) {
+      setIsDark(JSON.parse(storedIsDark));
+    }
+  }, []);
   const toggleMenu = () => {
     setMenuHidden(!isMenuHidden);
   };
